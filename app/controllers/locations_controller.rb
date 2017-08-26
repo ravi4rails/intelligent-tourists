@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :set_location, only: [:show, :edit, :update, :destroy]
+  before_action :set_location, only: [:show, :edit, :update, :destroy, :find_near_by_locations]
 
   # GET /locations
   # GET /locations.json
@@ -59,6 +59,12 @@ class LocationsController < ApplicationController
       format.html { redirect_to locations_url, notice: 'Location was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def find_near_by_locations
+    lat = @location.latitude
+    long = @location.longitude
+    @locations = Location.near([lat, long], 250, unit: :km)
   end
 
   private

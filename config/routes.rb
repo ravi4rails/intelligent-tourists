@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :locations
+  resources :locations do 
+    member do 
+      get :find_near_by_locations
+    end
+  end
   resources :cities
   resources :states
   get 'home/index'
